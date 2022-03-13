@@ -28,11 +28,11 @@ $(document).ready(function (){
                         $("#loading-text").html(originalText);
                     }
                     if (loadingProgress == 4) {
-                        originalText = "Henter Karektere"
+                        originalText = "Henter karaktere"
                         $("#loading-text").html(originalText);
                     }
                     if (loadingProgress == 6) {
-                        originalText = "Validerer Karektere"
+                        originalText = "Validerer karaktere"
                         $("#loading-text").html(originalText);
                     }
                     if(loadingDots == 4) {
@@ -85,7 +85,7 @@ $('.disconnect-btn').click(function(e){
 
 function setupCharInfo(cData) {
     if (cData == 'empty') {
-        $('.character-info-valid').html('<span id="no-char">The selected character slot is not in use yet.<br><br>This character doesn\'t have information yet.</span>');
+        $('.character-info-valid').html('<span id="no-char">Den valgte karakterplads er ikke i brug endnu.<br><br>Denne karakter har endnu ingen information.</span>');
     } else {
         var gender = "Man"
         if (cData.charinfo.gender == 1) { gender = "Woman" }
@@ -97,8 +97,8 @@ function setupCharInfo(cData) {
         '<div class="character-info-box"><span id="info-label">Job: </span><span class="char-info-js">'+cData.job.label+'</span></div>' +
         '<div class="character-info-box"><span id="info-label">Kontant: </span><span class="char-info-js">&#36; '+cData.money.cash+'</span></div>' +
         '<div class="character-info-box"><span id="info-label">Bank: </span><span class="char-info-js">&#36; '+cData.money.bank+'</span></div>' +
-        '<div class="character-info-box"><span id="info-label">Telefon nr: </span><span class="char-info-js">'+cData.charinfo.phone+'</span></div>' +
-        '<div class="character-info-box"><span id="info-label">Konto nummer: </span><span class="char-info-js">'+cData.charinfo.account+'</span></div>');
+        '<div class="character-info-box"><span id="info-label">Telefonnummer: </span><span class="char-info-js">'+cData.charinfo.phone+'</span></div>' +
+        '<div class="character-info-box"><span id="info-label">Kontonummer: </span><span class="char-info-js">'+cData.charinfo.account+'</span></div>');
     }
 }
 
@@ -131,7 +131,7 @@ $(document).on('click', '.character', function(e) {
         if ((selectedChar).data('cid') == "") {
             $(selectedChar).addClass("char-selected");
             setupCharInfo('empty')
-            $("#play-text").html("Create");
+            $("#play-text").html("Lav din karakter");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"none"});
             $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
@@ -140,8 +140,8 @@ $(document).on('click', '.character', function(e) {
         } else {
             $(selectedChar).addClass("char-selected");
             setupCharInfo($(this).data('cData'))
-            $("#play-text").html("Play");
-            $("#delete-text").html("Delete");
+            $("#play-text").html("Spil");
+            $("#delete-text").html("Slet din karakter");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"block"});
             $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
@@ -154,7 +154,7 @@ $(document).on('click', '.character', function(e) {
         if ((selectedChar).data('cid') == "") {
             $(selectedChar).addClass("char-selected");
             setupCharInfo('empty')
-            $("#play-text").html("Register");
+            $("#play-text").html("Registrer");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"none"});
             $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
@@ -163,8 +163,8 @@ $(document).on('click', '.character', function(e) {
         } else {
             $(selectedChar).addClass("char-selected");
             setupCharInfo($(this).data('cData'))
-            $("#play-text").html("Play");
-            $("#delete-text").html("Delete");
+            $("#play-text").html("Spil");
+            $("#delete-text").html("let din karakter");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"block"});
             $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
@@ -211,7 +211,7 @@ $(document).on('click', '#create', function (e) {
     }
 
     if(regTest.test(firstname) || regTest.test(lastname)){
-        console.log("FEJL: Du brugte et nedsættende/vulgært udtryk. Prøv igen!")
+        console.log("ERROR: You used a derogatory/vulgar term. Please try again!")
         return false;
     }
 
@@ -251,7 +251,7 @@ function setCharactersList() {
     for (let i = 1; i <= NChar; i++) {
         htmlResult += '<div class="character" id="char-'+ i +'" data-cid=""><span id="slot-name">Tom plads<span id="cid"></span></span></div>'
     }
-    htmlResult += '<div class="character-btn" id="play"><p id="play-text">Vælg en karakter</p></div><div class="character-btn" id="Slet"><p id="delete-text">Vælg en karakter</p></div>'
+    htmlResult += '<div class="character-btn" id="play"><p id="play-text">Select a character</p></div><div class="character-btn" id="delete"><p id="delete-text">Select a character</p></div>'
     $('.characters-list').html(htmlResult)
 }
 
@@ -261,7 +261,7 @@ function refreshCharacters() {
         htmlResult += '<div class="character" id="char-'+ i +'" data-cid=""><span id="slot-name">Tom plads<span id="cid"></span></span></div>'
     }
 
-    htmlResult += '<div class="character-btn" id="play"><p id="play-text">Vælg en karakter</p></div><div class="character-btn" id="Slet"><p id="delete-text">Vælg en karakter</p></div>'
+    htmlResult += '<div class="character-btn" id="play"><p id="play-text">Select a character</p></div><div class="character-btn" id="delete"><p id="delete-text">Select a character</p></div>'
     $('.characters-list').html(htmlResult)
     
     setTimeout(function(){
