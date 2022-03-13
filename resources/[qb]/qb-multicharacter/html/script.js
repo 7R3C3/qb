@@ -15,7 +15,7 @@ $(document).ready(function (){
                 $(".welcomescreen").fadeIn(150);
                 qbMultiCharacters.resetAll();
 
-                var originalText = "Retrieving player data";
+                var originalText = "Henter spillerdata";
                 var loadingProgress = 0;
                 var loadingDots = 0;
                 $("#loading-text").html(originalText);
@@ -24,15 +24,15 @@ $(document).ready(function (){
                     loadingDots++;
                     loadingProgress++;
                     if (loadingProgress == 3) {
-                        originalText = "Validating player data"
+                        originalText = "Validerer spillerdata"
                         $("#loading-text").html(originalText);
                     }
                     if (loadingProgress == 4) {
-                        originalText = "Retrieving characters"
+                        originalText = "Henter Karektere"
                         $("#loading-text").html(originalText);
                     }
                     if (loadingProgress == 6) {
-                        originalText = "Validating characters"
+                        originalText = "Validerer Karektere"
                         $("#loading-text").html(originalText);
                     }
                     if(loadingDots == 4) {
@@ -47,7 +47,7 @@ $(document).ready(function (){
                     setTimeout(function(){
                         clearInterval(DotsInterval);
                         loadingProgress = 0;
-                        originalText = "Retrieving data";
+                        originalText = "Henter data";
                         $(".welcomescreen").fadeOut(150);
                         qbMultiCharacters.fadeInDown('.character-info', '20%', 400);
                         qbMultiCharacters.fadeInDown('.characters-list', '20%', 400);
@@ -90,15 +90,15 @@ function setupCharInfo(cData) {
         var gender = "Man"
         if (cData.charinfo.gender == 1) { gender = "Woman" }
         $('.character-info-valid').html(
-        '<div class="character-info-box"><span id="info-label">Name: </span><span class="char-info-js">'+cData.charinfo.firstname+' '+cData.charinfo.lastname+'</span></div>' +
-        '<div class="character-info-box"><span id="info-label">Birth date: </span><span class="char-info-js">'+cData.charinfo.birthdate+'</span></div>' +
-        '<div class="character-info-box"><span id="info-label">Gender: </span><span class="char-info-js">'+gender+'</span></div>' +
-        '<div class="character-info-box"><span id="info-label">Nationality: </span><span class="char-info-js">'+cData.charinfo.nationality+'</span></div>' +
+        '<div class="character-info-box"><span id="info-label">Navn: </span><span class="char-info-js">'+cData.charinfo.firstname+' '+cData.charinfo.lastname+'</span></div>' +
+        '<div class="character-info-box"><span id="info-label">Fødselsdato: </span><span class="char-info-js">'+cData.charinfo.birthdate+'</span></div>' +
+        '<div class="character-info-box"><span id="info-label">Køn: </span><span class="char-info-js">'+gender+'</span></div>' +
+        '<div class="character-info-box"><span id="info-label">Nationalitet: </span><span class="char-info-js">'+cData.charinfo.nationality+'</span></div>' +
         '<div class="character-info-box"><span id="info-label">Job: </span><span class="char-info-js">'+cData.job.label+'</span></div>' +
-        '<div class="character-info-box"><span id="info-label">Cash: </span><span class="char-info-js">&#36; '+cData.money.cash+'</span></div>' +
+        '<div class="character-info-box"><span id="info-label">Kontant: </span><span class="char-info-js">&#36; '+cData.money.cash+'</span></div>' +
         '<div class="character-info-box"><span id="info-label">Bank: </span><span class="char-info-js">&#36; '+cData.money.bank+'</span></div>' +
-        '<div class="character-info-box"><span id="info-label">Phone number: </span><span class="char-info-js">'+cData.charinfo.phone+'</span></div>' +
-        '<div class="character-info-box"><span id="info-label">Account number: </span><span class="char-info-js">'+cData.charinfo.account+'</span></div>');
+        '<div class="character-info-box"><span id="info-label">Telefon nr: </span><span class="char-info-js">'+cData.charinfo.phone+'</span></div>' +
+        '<div class="character-info-box"><span id="info-label">Konto nummer: </span><span class="char-info-js">'+cData.charinfo.account+'</span></div>');
     }
 }
 
@@ -211,7 +211,7 @@ $(document).on('click', '#create', function (e) {
     }
 
     if(regTest.test(firstname) || regTest.test(lastname)){
-        console.log("ERROR: You used a derogatory/vulgar term. Please try again!")
+        console.log("FEJL: Du brugte et nedsættende/vulgært udtryk. Prøv igen!")
         return false;
     }
 
@@ -249,19 +249,19 @@ $(document).on('click', '#cancel-delete', function(e){
 function setCharactersList() {
     var htmlResult = '<div class="character-list-header"><p>My Characters</p></div>'
     for (let i = 1; i <= NChar; i++) {
-        htmlResult += '<div class="character" id="char-'+ i +'" data-cid=""><span id="slot-name">Empty Slot<span id="cid"></span></span></div>'
+        htmlResult += '<div class="character" id="char-'+ i +'" data-cid=""><span id="slot-name">Tom plads<span id="cid"></span></span></div>'
     }
-    htmlResult += '<div class="character-btn" id="play"><p id="play-text">Select a character</p></div><div class="character-btn" id="delete"><p id="delete-text">Select a character</p></div>'
+    htmlResult += '<div class="character-btn" id="play"><p id="play-text">Vælg en karakter</p></div><div class="character-btn" id="Slet"><p id="delete-text">Vælg en karakter</p></div>'
     $('.characters-list').html(htmlResult)
 }
 
 function refreshCharacters() {
     var htmlResult = ''
     for (let i = 1; i <= NChar; i++) {
-        htmlResult += '<div class="character" id="char-'+ i +'" data-cid=""><span id="slot-name">Empty Slot<span id="cid"></span></span></div>'
+        htmlResult += '<div class="character" id="char-'+ i +'" data-cid=""><span id="slot-name">Tom plads<span id="cid"></span></span></div>'
     }
 
-    htmlResult += '<div class="character-btn" id="play"><p id="play-text">Select a character</p></div><div class="character-btn" id="delete"><p id="delete-text">Select a character</p></div>'
+    htmlResult += '<div class="character-btn" id="play"><p id="play-text">Vælg en karakter</p></div><div class="character-btn" id="Slet"><p id="delete-text">Vælg en karakter</p></div>'
     $('.characters-list').html(htmlResult)
     
     setTimeout(function(){
