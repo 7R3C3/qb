@@ -56,24 +56,40 @@ Config.AuthorizedVehicles = {
 	-- Grade 0
 	[0] = {
 		["ambulance"] = "Ambulance",
+		["gul"] = "gul",
+		["hvid"] = "hvid",
+		["speedo"] = "speedo",
+		["touareg"] = "Ambulance",
 	},
 	-- Grade 1
 	[1] = {
 		["ambulance"] = "Ambulance",
-
+		["gul"] = "gul",
+		["hvid"] = "hvid",
+		["speedo"] = "speedo",
+		["touareg"] = "Ambulance",
 	},
 	-- Grade 2
 	[2] = {
 		["ambulance"] = "Ambulance",
-	},
+		["gul"] = "gul",
+		["hvid"] = "hvid",
+		["speedo"] = "speedo",
+		["touareg"] = "Ambulance",	},
 	-- Grade 3
 	[3] = {
 		["ambulance"] = "Ambulance",
-	},
+		["gul"] = "gul",
+		["hvid"] = "hvid",
+		["speedo"] = "speedo",
+		["touareg"] = "Ambulance",	},
 	-- Grade 4
 	[4] = {
 		["ambulance"] = "Ambulance",
-	}
+		["gul"] = "gul",
+		["hvid"] = "hvid",
+		["speedo"] = "speedo",
+		["touareg"] = "Ambulance",	}
 }
 
 Config.Helicopter = "polmav"
