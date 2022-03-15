@@ -480,6 +480,13 @@ Config.JobInteractions = {
             event = 'hospital:client:RevivePlayer',
             shouldClose = true
         },{
+            id = 'joinradio1',
+            title = 'Kanal 2',
+            icon = 'info-circle',
+            type = 'client',
+            event = 'qb-radio:client:JoinRadioChannel2',
+            shouldClose = true
+        },{
             id = 'treatwounds',
             title = 'Hel sår',
             icon = 'band-aid',
@@ -588,6 +595,13 @@ Config.JobInteractions = {
             icon = 'info-circle',
             type = 'client',
             event = 'qb-tunerchip:client:TuneStatus',
+            shouldClose = true
+        }, {
+            id = 'joinradio1',
+            title = 'Kanal 1',
+            icon = 'info-circle',
+            type = 'client',
+            event = 'qb-radio:client:JoinRadioChannel1',
             shouldClose = true
         }, {
             id = 'resethouse',
