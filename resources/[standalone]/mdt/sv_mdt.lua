@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local call_index = 0
 
-RegisterServerEvent("mdt:hotKeyOpen")
+RegisterServerEvent("mdt:hotKeyOpen") --morfar
 AddEventHandler("mdt:hotKeyOpen", function()
 	local usource = source
     local xPlayer = QBCore.Functions.GetPlayer(usource)
