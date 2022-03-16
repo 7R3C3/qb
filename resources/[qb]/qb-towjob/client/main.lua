@@ -25,8 +25,8 @@ local function deliverVehicle(vehicle)
     RemoveBlip(CurrentBlip2)
     JobsDone = JobsDone + 1
     VehicleSpawned = false
-    QBCore.Functions.Notify("You Have Delivered A Vehicle", "success")
-    QBCore.Functions.Notify("A New Vehicle Can Be Picked Up")
+    QBCore.Functions.Notify("Du har leveret et køretøj", "success")
+    QBCore.Functions.Notify("Et nyt køretøj kan afhentes")
 
     local randomLocation = getRandomVehicleLocation()
     CurrentLocation.x = Config.Locations["towspots"][randomLocation].coords.x
@@ -131,7 +131,7 @@ end
 local function MenuGarage()
     local towMenu = {
         {
-            header = "Available Trucks",
+            header = "Tilgængelige lastbiler",
             isMenuHeader = true
         }
     }
@@ -148,7 +148,7 @@ local function MenuGarage()
     end
 
     towMenu[#towMenu+1] = {
-        header = "⬅ Close Menu",
+        header = "⬅ Luk menu",
         txt = "",
         params = {
             event = "qb-menu:client:closeMenu"
@@ -241,7 +241,7 @@ end)
 RegisterNetEvent('jobs:client:ToggleNpc', function()
     if QBCore.Functions.GetPlayerData().job.name == "tow" then
         if CurrentTow ~= nil then
-            QBCore.Functions.Notify("First Finish Your Work", "error")
+            QBCore.Functions.Notify("Fuldfør først dit arbejde", "error")
             return
         end
         NpcOn = not NpcOn
@@ -279,7 +279,7 @@ RegisterNetEvent('qb-tow:client:TowVehicle', function()
 
             if NpcOn and CurrentLocation ~= nil then
                 if GetEntityModel(targetVehicle) ~= GetHashKey(CurrentLocation.model) then
-                    QBCore.Functions.Notify("This Is Not The Right Vehicle", "error")
+                    QBCore.Functions.Notify("Dette er ikke det rigtige køretøj", "error")
                     return
                 end
             end
@@ -289,7 +289,7 @@ RegisterNetEvent('qb-tow:client:TowVehicle', function()
                     local towPos = GetEntityCoords(vehicle)
                     local targetPos = GetEntityCoords(targetVehicle)
                     if #(towPos - targetPos) < 11.0 then
-                        QBCore.Functions.Progressbar("towing_vehicle", "Hoisting the Vehicle...", 5000, false, true, {
+                        QBCore.Functions.Progressbar("towing_vehicle", "Hejser køretøjet...", 5000, false, true, {
                             disableMovement = true,
                             disableCarMovement = true,
                             disableMouse = false,
@@ -305,7 +305,7 @@ RegisterNetEvent('qb-tow:client:TowVehicle', function()
                             CurrentTow = targetVehicle
                             if NpcOn then
                                 RemoveBlip(CurrentBlip)
-                                QBCore.Functions.Notify("Take The Vehicle To Hayes Depot", "success", 5000)
+                                QBCore.Functions.Notify("Tag køretøjet til Hayes Depot", "success", 5000)
                                 CurrentBlip2 = AddBlipForCoord(491.00, -1314.69, 29.25)
                                 SetBlipColour(CurrentBlip2, 3)
                                 SetBlipRoute(CurrentBlip2, true)
@@ -315,10 +315,10 @@ RegisterNetEvent('qb-tow:client:TowVehicle', function()
                                     TriggerServerEvent('qb-tow:server:nano')
                                 end
                             end
-                            QBCore.Functions.Notify("Vehicle Towed")
+                            QBCore.Functions.Notify("Køretøj bugseret")
                         end, function() -- Cancel
                             StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_ped", 1.0)
-                            QBCore.Functions.Notify("Failed", "error")
+                            QBCore.Functions.Notify("Fejl", "error")
                         end)
                     end
                 end
@@ -346,14 +346,14 @@ RegisterNetEvent('qb-tow:client:TowVehicle', function()
                     end
                 end
                 CurrentTow = nil
-                QBCore.Functions.Notify("Vehicle Taken Off")
+                QBCore.Functions.Notify("Køretøj taget af")
             end, function() -- Cancel
                 StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_ped", 1.0)
-                QBCore.Functions.Notify("Failed", "error")
+                QBCore.Functions.Notify("Fejl", "error")
             end)
         end
     else
-        QBCore.Functions.Notify("You Must Have Been In A Towing Vehicle First", "error")
+        QBCore.Functions.Notify("Du skal have været i et bugserkøretøj først", "error")
     end
 end)
 
@@ -412,7 +412,7 @@ function RunWorkThread()
                                 shownHeader = true
                                 exports['qb-menu']:showHeader({
                                     {
-                                        header = "Select Vehicle",
+                                        header = "Vælg bil",
                                         params = {
                                             event = 'qb-tow:client:SelectVehicle',
                                             args = {}
@@ -444,7 +444,7 @@ function RunWorkThread()
                         local y = mainCoords.y
                         local z = mainCoords.z
 
-                        DrawText3D(x,y,z, "~g~E~w~ - Payslip")
+                        DrawText3D(x,y,z, "~g~E~w~ - Lønseddel")
                         if IsControlJustReleased(0, 38) then
                             if JobsDone > 0 then
                                 RemoveBlip(CurrentBlip)
@@ -452,14 +452,14 @@ function RunWorkThread()
                                 JobsDone = 0
                                 NpcOn = false
                             else
-                                QBCore.Functions.Notify("You have not done any work yet.", "error")
+                                QBCore.Functions.Notify("Du har ikke udført noget arbejde endnu.", "error")
                             end
                         end
                     elseif #(pos - mainCoords) < 2.5 then
                         local x = mainCoords.x
                         local y = mainCoords.y
                         local z = mainCoords.z
-                        DrawText3D(x,y,z, "Payslip")
+                        DrawText3D(x,y,z, "Lønseddel")
                     end
                     sleep = 5
                 end
