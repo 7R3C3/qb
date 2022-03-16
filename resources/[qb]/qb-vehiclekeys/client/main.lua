@@ -57,9 +57,9 @@ local function LockVehicle()
                         SetVehicleLights(veh, 1)
                         Wait(200)
                         SetVehicleLights(veh, 0)
-                        QBCore.Functions.Notify("Vehicle locked!")
+                        QBCore.Functions.Notify("Bil låst!")
                     else
-                        QBCore.Functions.Notify("Something went wrong with the locking system!")
+                        QBCore.Functions.Notify("Der gik noget galt med låsesystemet prøv igen!")
                     end
                 else
                     Wait(750)
@@ -72,13 +72,13 @@ local function LockVehicle()
                         SetVehicleLights(veh, 1)
                         Wait(200)
                         SetVehicleLights(veh, 0)
-                        QBCore.Functions.Notify("Vehicle unlocked!")
+                        QBCore.Functions.Notify("Bil låst op!")
                     else
-                        QBCore.Functions.Notify("Something went wrong with the locking system!")
+                        QBCore.Functions.Notify("Der gik noget galt med låsesystemet prøv igen!")
                     end
                 end
             else
-                QBCore.Functions.Notify('You don\'t have the keys of the vehicle..', 'error')
+                QBCore.Functions.Notify('Du har ikke en nøgle!..', 'error')
             end
         end, plate)
     end
@@ -128,8 +128,8 @@ local function PoliceCall()
                         Name = "Unknown"
                     end
                     local modelPlate = QBCore.Functions.GetPlate(vehicle)
-                    local msg = "Vehicle theft attempt at " .. streetLabel .. ". Vehicle: " .. Name .. ", Licenseplate: " .. modelPlate
-                    local alertTitle = "Vehicle theft attempt at"
+                    local msg = "Biltyveri ved " .. streetLabel .. ". Vehicle: " .. Name .. ", Licenseplate: " .. modelPlate
+                    local alertTitle = "Biltyveri ved"
                     TriggerServerEvent("police:server:VehicleCall", pos, msg, alertTitle, streetLabel, modelPlate, Name)
                 else
                     local vehicle = QBCore.Functions.GetClosestVehicle()
@@ -140,8 +140,8 @@ local function PoliceCall()
                     else
                         Name = "Unknown"
                     end
-                    local msg = "Vehicle theft attempt at " .. streetLabel .. ". Vehicle: " .. Name .. ", Licenseplate: " .. modelPlate
-                    local alertTitle = "Vehicle theft attempt at"
+                    local msg = "Biltyveri ved " .. streetLabel .. ". Vehicle: " .. Name .. ", Licenseplate: " .. modelPlate
+                    local alertTitle = "Biltyveri ved"
                     TriggerServerEvent("police:server:VehicleCall", pos, msg, alertTitle, streetLabel, modelPlate, Name)
                 end
             end
@@ -160,14 +160,14 @@ local function lockpickFinish(success)
     local chance = math.random()
     if success then
         TriggerServerEvent('hud:server:GainStress', math.random(1, 4))
-        QBCore.Functions.Notify('Opened Door!', 'success')
+        QBCore.Functions.Notify('Dør låst op, du føler dig lidt stresset!', 'success')
         SetVehicleDoorsLocked(vehicle, 1)
         lockpicked = true
         lockpickedPlate = QBCore.Functions.GetPlate(vehicle)
     else
         PoliceCall()
         TriggerServerEvent('hud:server:GainStress', math.random(1, 4))
-        QBCore.Functions.Notify('Someone Called The Police!', 'error')
+        QBCore.Functions.Notify('Nogle ringede efter politiet løb!', 'error')
     end
     if usingAdvanced then
         if chance <= Config.RemoveLockpickAdvanced then
@@ -208,7 +208,7 @@ local function Hotwire()
         SetVehicleAlarm(vehicle, true)
         SetVehicleAlarmTimeLeft(vehicle, hotwireTime)
         PoliceCall()
-        QBCore.Functions.Progressbar("hotwire_vehicle", "Engaging the ignition switch", hotwireTime, false, true, {
+        QBCore.Functions.Progressbar("hotwire_vehicle", "tilkobler tændingskontakten", hotwireTime, false, true, {
             disableMovement = true,
             disableCarMovement = true,
             disableMouse = false,
@@ -223,17 +223,17 @@ local function Hotwire()
                 lockpicked = false
                 TriggerServerEvent('hud:server:GainStress', math.random(1, 4))
                 TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(vehicle))
-                QBCore.Functions.Notify("Hotwire succeeded!")
+                QBCore.Functions.Notify("Hotwire lykkedes!")
             else
                 SetVehicleEngineOn(veh, false, false, true)
                 TriggerServerEvent('hud:server:GainStress', math.random(1, 4))
-                QBCore.Functions.Notify("Hotwire failed!", "error")
+                QBCore.Functions.Notify("Hotwire fejlede!", "error")
             end
             IsHotwiring = false
         end, function() -- Cancel
             StopAnimTask(ped, "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
             SetVehicleEngineOn(veh, false, false, true)
-            QBCore.Functions.Notify("Hotwire failed!", "error")
+            QBCore.Functions.Notify("Hotwire fejlede!", "error")
             IsHotwiring = false
         end)
     end
@@ -254,7 +254,7 @@ local function RobVehicle(target)
             local plate = QBCore.Functions.GetPlate(GetVehiclePedIsIn(target, true))
             TriggerServerEvent('hud:server:GainStress', math.random(1, 4))
             TriggerEvent('vehiclekeys:client:SetOwner', plate)
-            QBCore.Functions.Notify('You Got The Keys!', 'success')
+            QBCore.Functions.Notify('Du fik nøglerne!', 'success')
             Wait(10000)
             IsRobbing = false
         else
@@ -262,7 +262,7 @@ local function RobVehicle(target)
             ClearPedTasks(target)
             TaskReactAndFleePed(target, PlayerPedId())
             TriggerServerEvent('hud:server:GainStress', math.random(1, 4))
-            QBCore.Functions.Notify('They Called The Cops!', 'error')
+            QBCore.Functions.Notify('De ringede efter politiet løb!', 'error')
             Wait(10000)
             IsRobbing = false
         end
@@ -321,7 +321,7 @@ RegisterNetEvent('vehiclekeys:client:GiveKeys', function(target)
         local plate = QBCore.Functions.GetPlate(GetVehiclePedIsIn(PlayerPedId(), true))
         TriggerServerEvent('vehiclekeys:server:GiveVehicleKeys', plate, target)
     else
-        QBCore.Functions.Notify('you need to be in a vehicle to give key', 'error')
+        QBCore.Functions.Notify('Du skal være i et køretøj for at give nøglerne', 'error')
     end
 end)
 

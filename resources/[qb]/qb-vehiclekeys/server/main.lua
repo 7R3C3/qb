@@ -55,13 +55,13 @@ RegisterNetEvent('vehiclekeys:server:GiveVehicleKeys', function(plate, target)
     if CheckOwner(plate, Player.PlayerData.citizenid) then
         if QBCore.Functions.GetPlayer(target) ~= nil then
             TriggerClientEvent('vehiclekeys:client:SetOwner', target, plate)
-            TriggerClientEvent('QBCore:Notify', src, "You gave the keys!")
-            TriggerClientEvent('QBCore:Notify', target, "You got the keys!")
+            TriggerClientEvent('QBCore:Notify', src, "Du gav en nøglerne!")
+            TriggerClientEvent('QBCore:Notify', target, "Du fik et sæt nøgler!")
         else
-            TriggerClientEvent('QBCore:Notify', source,  "Player Not Online", "error")
+            TriggerClientEvent('QBCore:Notify', source,  "Spiller ikke på", "error")
         end
     else
-        TriggerClientEvent('QBCore:Notify', source,  "You Dont Own This Vehicle", "error")
+        TriggerClientEvent('QBCore:Notify', source,  "Du ejer ikke denne bil", "error")
     end
 end)
 
@@ -121,10 +121,10 @@ RegisterNetEvent('vehiclekeys:server:RemoveKeys', function(plate, citizenid)
             return false
         end
 
-        TriggerClientEvent('QBCore:Notify', src,  ("You have removed the keys of vehicle %s"):format(plate), "success")
+        TriggerClientEvent('QBCore:Notify', src,  ("Du smed nøglerne væk til denne bilæ %s"):format(plate), "success")
 
     else
-        TriggerClientEvent('QBCore:Notify', src,  "You do not own this vehicle or lack the permissions.", "error")
+        TriggerClientEvent('QBCore:Notify', src,  "Du ejer ikke denne bil eller har ikke de rette perms!.", "error")
     end
 end)
 
