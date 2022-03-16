@@ -16,7 +16,7 @@ CreateThread(function()
         SetBlipAsShortRange(blip, true)
         SetBlipColour(blip, 9)
         BeginTextCommandSetBlipName("STRING")
-        AddTextComponentSubstringPlayerName("Scrap Yard")
+        AddTextComponentSubstringPlayerName("OPhuggewr")
         EndTextCommandSetBlipName(blip)
 	end
     Wait(1000)
@@ -37,7 +37,7 @@ CreateThread(function()
 					if vehicle ~= 0 and vehicle ~= nil then
 						local vehpos = GetEntityCoords(vehicle)
 						if #(pos - vector3(vehpos.x, vehpos.y, vehpos.z)) < 2.5 and not isBusy then
-							DrawText3Ds(vehpos.x, vehpos.y, vehpos.z, "~g~E~w~ - Disassemble Vehicle")
+							DrawText3Ds(vehpos.x, vehpos.y, vehpos.z, "~g~E~w~ - Skil bilen ad")
 							if IsControlJustReleased(0, 38) then
 								if GetPedInVehicleSeat(vehicle, -1) == PlayerPedId() then
 									if IsVehicleValid(GetEntityModel(vehicle)) then
@@ -46,14 +46,14 @@ CreateThread(function()
 											if retval then
 												ScrapVehicle(vehicle)
 											else
-												QBCore.Functions.Notify("You can't smash a vehicle that owns it.", "error")
+												QBCore.Functions.Notify("Du kan ikke smadre en bil du ikke ejer!.", "error")
 											end
 										end,vehiclePlate)
 									else
-										QBCore.Functions.Notify("This Vehicle Cannot Be Scrapped.", "error")
+										QBCore.Functions.Notify("Dene bil kan ikke blive hugget op!.", "error")
 									end
 								else
-									QBCore.Functions.Notify("You Are Not The Driver", "error")
+									QBCore.Functions.Notify("Du skal være i fører siden!", "error")
 								end
 							end
 						end
@@ -62,7 +62,7 @@ CreateThread(function()
 			end
 			if #(pos - vector3(Config.Locations[closestScrapyard]["list"].x, Config.Locations[closestScrapyard]["list"].y, Config.Locations[closestScrapyard]["list"].z)) < 1.5 then
 				if not IsPedInAnyVehicle(PlayerPedId()) and not emailSend then
-					DrawText3Ds(Config.Locations[closestScrapyard]["list"].x, Config.Locations[closestScrapyard]["list"].y, Config.Locations[closestScrapyard]["list"].z, "~g~E~w~ - E-mail Vehicle List")
+					DrawText3Ds(Config.Locations[closestScrapyard]["list"].x, Config.Locations[closestScrapyard]["list"].y, Config.Locations[closestScrapyard]["list"].z, "~g~E~w~ - Send en liste med dele på mail")
 					if IsControlJustReleased(0, 38) then
 						CreateListEmail()
 					end
@@ -93,12 +93,12 @@ function CreateListEmail()
 			TriggerServerEvent('qb-phone:server:sendNewMail', {
 				sender = "Turner’s Auto Wrecking",
 				subject = "Vehicle List",
-				message = "You Can Only Demolish A Number Of Vehicles.<br />You Can Keep Everything You Demolish For Yourself As Long As You Dont Bother Me.<br /><br /><strong>Vehicle List:</strong><br />".. vehicleList,
+				message = "Du kan kun hugge et vis antal køretøjer op.<br />Du kan beholde alt, hvad du hugger for dig selv, så længe du ikke generer mig.<br /><br /><strong>Køretøjsliste:</strong><br />".. vehicleList,
 				button = {}
 			})
 		end)
 	else
-		QBCore.Functions.Notify("You Are Not Allowed To Demolish Vehicles Now", "error")
+		QBCore.Functions.Notify("Du har ikke tilladelse til at rive køretøjer ned nu", "error")
 	end
 end
 
@@ -106,7 +106,7 @@ function ScrapVehicle(vehicle)
 	isBusy = true
 	local scrapTime = math.random(28000, 37000)
 	ScrapVehicleAnim(scrapTime)
-	QBCore.Functions.Progressbar("scrap_vehicle", "Demolish Vehicle", scrapTime, false, true, {
+	QBCore.Functions.Progressbar("scrap_vehicle", "Hugger bilen op", scrapTime, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -120,7 +120,7 @@ function ScrapVehicle(vehicle)
 	end, function() -- Cancel
 		StopAnimTask(PlayerPedId(), "mp_car_bomb", "car_bomb_mechanic", 1.0)
 		isBusy = false
-		QBCore.Functions.Notify("Canceled", "error")
+		QBCore.Functions.Notify("anulleret", "error")
 	end)
 end
 
