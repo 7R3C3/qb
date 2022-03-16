@@ -36,7 +36,7 @@ CreateThread(function()
             local dist = #(pos - Config.Registers[k][1].xyz)
             if dist <= 1 and Config.Registers[k].robbed then
                 inRange = true
-                DrawText3Ds(Config.Registers[k][1].xyz, 'The Cash Register Is Empty')
+                DrawText3Ds(Config.Registers[k][1].xyz, 'Kasseapparatet er tomt')
             end
         end
         if not inRange then
@@ -58,7 +58,7 @@ CreateThread(function()
                     inRange = true
                     if dist < 1.0 then
                         if not Config.Safes[safe].robbed then
-                            DrawText3Ds(Config.Safes[safe][1].xyz, '~g~E~w~ - Try Combination')
+                            DrawText3Ds(Config.Safes[safe][1].xyz, '~g~E~w~ - Prøv kombination')
                             if IsControlJustPressed(0, 38) then
                                 if CurrentCops >= Config.MinimumStoreRobberyPolice then
                                     currentSafe = safe
@@ -92,11 +92,11 @@ CreateThread(function()
                                         copsCalled = true
                                     end
                                 else
-                                    QBCore.Functions.Notify("Not Enough Police (".. Config.MinimumStoreRobberyPolice .." Required)", "error")
+                                    QBCore.Functions.Notify("Ikke nok betjente på der mangler: (".. Config.MinimumStoreRobberyPolice ..")", "error")
                                 end
                             end
                         else
-                            DrawText3Ds(Config.Safes[safe][1].xyz, 'Safe Opened')
+                            DrawText3Ds(Config.Safes[safe][1].xyz, 'Pengeskab åbnet')
                         end
                     end
                 end
@@ -175,7 +175,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                 end
 
             else
-                QBCore.Functions.Notify("Not Enough Police (2 Required)", "error")
+                QBCore.Functions.Notify("Ikke nok politi (2 påkrævet)", "error")
             end
         end
     end
@@ -441,7 +441,7 @@ RegisterNetEvent('qb-storerobbery:client:robberyCall', function(type, key, stree
         PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
         TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
             timeOut = 5000,
-            alertTitle = "10-31 | Shop Robbery",
+            alertTitle = "10-31 | Butiks røveri",
             coords = {
                 x = coords.x,
                 y = coords.y,
@@ -468,7 +468,7 @@ RegisterNetEvent('qb-storerobbery:client:robberyCall', function(type, key, stree
         SetBlipAlpha(blip, transG)
         SetBlipScale(blip, 1.0)
         BeginTextCommandSetBlipName('STRING')
-        AddTextComponentString("10-31 | Shop Robbery")
+        AddTextComponentString("10-31 | Butiks røveri")
         EndTextCommandSetBlipName(blip)
         while transG ~= 0 do
             Wait(180 * 4)
