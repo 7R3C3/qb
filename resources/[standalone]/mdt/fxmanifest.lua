@@ -2,7 +2,7 @@
 -- Do not sell, redistribute or claim this code as your own without my permission, thank you. <3
 fx_version 'adamant'
 game 'gta5'
-
+author 'morfar'
 ui_page "ui/index.html"
 
 files {
@@ -10,6 +10,7 @@ files {
     "ui/vue.min.js",
     "ui/script.js",
     "ui/main.css",
+    "ui/img/ipad.png",
     "ui/styles/police.css",
     "ui/badges/police.png",
     "ui/footer.png",
