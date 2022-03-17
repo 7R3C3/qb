@@ -125,7 +125,7 @@ RegisterNetEvent('qb-vehicleshop:server:customTestDrive', function(vehicle, play
     if #(GetEntityCoords(GetPlayerPed(src))-GetEntityCoords(GetPlayerPed(target)))<3 then
         TriggerClientEvent('qb-vehicleshop:client:customTestDrive', target, vehicle)
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Denne spiller er ikke tæt nok påh', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Denne spiller er ikke tæt nok på', 'error')
     end
 end)
 
@@ -472,12 +472,12 @@ RegisterNetEvent('qb-vehicleshop:server:transferVehicle', function(plate, buyerI
         else
             local targetcid = target.PlayerData.citizenid
             MySQL.Async.execute('UPDATE player_vehicles SET citizenid = ? WHERE plate = ?', {targetcid, plate})
-            TriggerClientEvent('QBCore:Notify', src, 'You gifted your vehicle', 'success')Kunde ikke hente køberoplysninger.
+            TriggerClientEvent('QBCore:Notify', src, 'You gifted your vehicle', 'success')
             TriggerClientEvent('vehiclekeys:client:SetOwner', target.PlayerData.source, plate)
             TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Du fik et køretøj i gave', 'success')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Couldn\'t get purchaser info.', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Kunde ikke hente køberoplysninger.', 'error')
     end
 end)
 
