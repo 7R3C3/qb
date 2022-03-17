@@ -9,7 +9,7 @@ Config.CallRepeats = 10
 Config.OpenPhone = 244
 Config.PhoneApplications = {
     ["phone"] = {
-        app = "phone",
+        app = "Telefon",
         color = "#04b543",
         icon = "fa fa-phone-alt",
         tooltipText = "Phone",
@@ -32,7 +32,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["settings"] = {
-        app = "settings",
+        app = "Indstillinger",
         color = "#636e72",
         icon = "fa fa-cogs",
         tooltipText = "Settings",
@@ -65,7 +65,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["mail"] = {
-        app = "mail",
+        app = "E-mail",
         color = "#ff002f",
         icon = "fas fa-envelope-open-text",
         tooltipText = "Mail",
@@ -75,7 +75,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["advert"] = {
-        app = "advert",
+        app = "Reklame",
         color = "#ff8f1a",
         icon = "fas fa-bullhorn",
         tooltipText = "Advertisements",
@@ -105,7 +105,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["racing"] = {
-        app = "racing",
+        app = "Ræs",
         color = "#353b48",
         icon = "fas fa-flag-checkered",
         tooltipText = "Racing",
@@ -115,7 +115,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["houses"] = {
-        app = "houses",
+        app = "Huse",
         color = "#27ae60",
         icon = "fas fa-home",
         tooltipText = "Houses",
@@ -124,25 +124,15 @@ Config.PhoneApplications = {
         slot = 11,
         Alerts = 0,
     },
-    ["meos"] = {
-        app = "meos",
-        color = "#004682",
-        icon = "fas fa-ad",
-        tooltipText = "MDT",
-        job = "police",
-        blockedjobs = {},
-        slot = 12,
-        Alerts = 0,
-    },
     ["lawyers"] = {
-        app = "lawyers",
+        app = "Advokater",
         color = "#26d4ce",
         icon = "fas fa-briefcase",
         tooltipText = "Services",
         tooltipPos = "bottom",
         job = false,
         blockedjobs = {},
-        slot = 13,
+        slot = 12,
         Alerts = 0,
     },
 }

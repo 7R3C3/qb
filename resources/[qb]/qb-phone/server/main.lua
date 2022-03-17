@@ -493,7 +493,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:ScanPlate', function(source, cb
         end
         cb(vehicleData)
     else
-        TriggerClientEvent('QBCore:Notify', src, 'No Vehicle Nearby', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Ingen bil i nærheden', 'error')
         cb(nil)
     end
 end)
@@ -863,7 +863,7 @@ RegisterNetEvent('qb-phone:server:TransferMoney', function(iban, amount)
             sender.Functions.RemoveMoney('bank', amount, "phone-transfered")
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, "This account number doesn't exist!", "error")
+        TriggerClientEvent('QBCore:Notify', src, "Dette konto nummer findes ikk!", "error")
     end
 end)
 
@@ -1043,7 +1043,7 @@ RegisterNetEvent('qb-phone:server:sendPing', function(data)
     if src ~= data then
 
     else
-        TriggerClientEvent("QBCore:Notify", src, "You cannot ping yourself", "error")
+        TriggerClientEvent("QBCore:Notify", src, "Du kan ikke pinge dig selv", "error")
     end
 end)
 
@@ -1075,18 +1075,18 @@ QBCore.Commands.Add('bill', 'Bill A Player', {{name = 'id', help = 'Player ID'},
                         {billed.PlayerData.citizenid, amount, biller.PlayerData.job.name,
                          biller.PlayerData.charinfo.firstname, biller.PlayerData.citizenid})
                     TriggerClientEvent('qb-phone:RefreshPhone', billed.PlayerData.source)
-                    TriggerClientEvent('QBCore:Notify', source, 'Invoice Successfully Sent', 'success')
-                    TriggerClientEvent('QBCore:Notify', billed.PlayerData.source, 'New Invoice Received')
+                    TriggerClientEvent('QBCore:Notify', source, 'Regning er sendt', 'success')
+                    TriggerClientEvent('QBCore:Notify', billed.PlayerData.source, 'Ny regning modtaget')
                 else
-                    TriggerClientEvent('QBCore:Notify', source, 'Must Be A Valid Amount Above 0', 'error')
+                    TriggerClientEvent('QBCore:Notify', source, 'Skal være et over 0', 'error')
                 end
             else
-                TriggerClientEvent('QBCore:Notify', source, 'You Cannot Bill Yourself', 'error')
+                TriggerClientEvent('QBCore:Notify', source, 'Du kan ikke snde en regning til dig selv?', 'error')
             end
         else
-            TriggerClientEvent('QBCore:Notify', source, 'Player Not Online', 'error')
+            TriggerClientEvent('QBCore:Notify', source, 'Spiller er ikke i byen', 'error')
         end
     else
-        TriggerClientEvent('QBCore:Notify', source, 'No Access', 'error')
+        TriggerClientEvent('QBCore:Notify', source, 'Ingen adgang!', 'error')
     end
 end)
