@@ -119,13 +119,13 @@ RegisterNetEvent('qb-vehicleshop:server:customTestDrive', function(vehicle, play
     local src = source
     local target = tonumber(playerid)
     if not QBCore.Functions.GetPlayer(target) then
-        TriggerClientEvent('QBCore:Notify', src, 'Invalid Player Id Supplied', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Ugyldigt spiller-id angivet', 'error')
         return
     end
     if #(GetEntityCoords(GetPlayerPed(src))-GetEntityCoords(GetPlayerPed(target)))<3 then
         TriggerClientEvent('qb-vehicleshop:client:customTestDrive', target, vehicle)
     else
-        TriggerClientEvent('QBCore:Notify', src, 'This player is not close enough', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Denne spiller er ikke tæt nok påh', 'error')
     end
 end)
 
@@ -149,13 +149,13 @@ RegisterNetEvent('qb-vehicleshop:server:financePayment', function(paymentAmount,
                 player.Functions.RemoveMoney('bank', paymentAmount)
                 MySQL.Async.execute('UPDATE player_vehicles SET balance = ?, paymentamount = ?, paymentsleft = ?, financetime = ? WHERE plate = ?', {newBalance, newPayment, newPaymentsLeft, timer, plate})
             else
-                TriggerClientEvent('QBCore:Notify', src, 'Not enough money', 'error')
+                TriggerClientEvent('QBCore:Notify', src, 'Ikke nok penge', 'error')
             end
         else
-            TriggerClientEvent('QBCore:Notify', src, 'Minimum payment allowed is $' ..comma_value(minPayment), 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Minimum tilladte betaling er DKK' ..comma_value(minPayment), 'error')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'You overpaid', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Du betalte for meget', 'error')
     end
 end)
 
@@ -176,10 +176,10 @@ RegisterNetEvent('qb-vehicleshop:server:financePaymentFull', function(data)
             player.Functions.RemoveMoney('bank', vehBalance)
             MySQL.Async.execute('UPDATE player_vehicles SET balance = ?, paymentamount = ?, paymentsleft = ?, financetime = ? WHERE plate = ?', {0, 0, 0, 0, vehPlate})
         else
-            TriggerClientEvent('QBCore:Notify', src, 'Not enough money', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Ikke nok penge!', 'error')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Vehicle is already paid off', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Bilen er allerede afbetalt', 'error')
     end
 end)
 
@@ -203,7 +203,7 @@ RegisterNetEvent('qb-vehicleshop:server:buyShowroomVehicle', function(vehicle)
             plate,
             0
         })
-        TriggerClientEvent('QBCore:Notify', src, 'Congratulations on your purchase!', 'success')
+        TriggerClientEvent('QBCore:Notify', src, 'Tillykke med dit køb!', 'success')
         TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
         pData.Functions.RemoveMoney('cash', vehiclePrice, 'vehicle-bought-in-showroom')
     elseif bank > vehiclePrice then
@@ -216,11 +216,11 @@ RegisterNetEvent('qb-vehicleshop:server:buyShowroomVehicle', function(vehicle)
             plate,
             0
         })
-        TriggerClientEvent('QBCore:Notify', src, 'Congratulations on your purchase!', 'success')
+        TriggerClientEvent('QBCore:Notify', src, 'Tillykke med dit køb!', 'success')
         TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
         pData.Functions.RemoveMoney('bank', vehiclePrice, 'vehicle-bought-in-showroom')
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Not enough money', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Ikke nok penge!', 'error')
     end
 end)
 
@@ -236,9 +236,9 @@ RegisterNetEvent('qb-vehicleshop:server:financeVehicle', function(downPayment, p
     local vehiclePrice = QBCore.Shared.Vehicles[vehicle]['price']
     local timer = (Config.PaymentInterval * 60)
     local minDown = tonumber(round((Config.MinimumDown/100) * vehiclePrice))
-    if downPayment > vehiclePrice then return TriggerClientEvent('QBCore:Notify', src, 'Vehicle is not worth that much', 'error') end
-    if downPayment < minDown then return TriggerClientEvent('QBCore:Notify', src, 'Down payment too small', 'error') end
-    if paymentAmount > Config.MaximumPayments then return TriggerClientEvent('QBCore:Notify', src, 'Exceeded maximum payment amount', 'error') end
+    if downPayment > vehiclePrice then return TriggerClientEvent('QBCore:Notify', src, 'Køretøjet er ikke så meget værd', 'error') end
+    if downPayment < minDown then return TriggerClientEvent('QBCore:Notify', src, 'For lille udbetaling', 'error') end
+    if paymentAmount > Config.MaximumPayments then return TriggerClientEvent('QBCore:Notify', src, 'Det maksimale betalingsbeløb er overskredet', 'error') end
     local plate = GeneratePlate()
     local balance, vehPaymentAmount = calculateFinance(vehiclePrice, downPayment, paymentAmount)
     if cash >= downPayment then
@@ -255,7 +255,7 @@ RegisterNetEvent('qb-vehicleshop:server:financeVehicle', function(downPayment, p
             paymentAmount,
             timer
         })
-        TriggerClientEvent('QBCore:Notify', src, 'Congratulations on your purchase!', 'success')
+        TriggerClientEvent('QBCore:Notify', src, 'Tillykke med dit køb!', 'success')
         TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
         pData.Functions.RemoveMoney('cash', downPayment, 'vehicle-bought-in-showroom')
     elseif bank >= downPayment then
@@ -272,11 +272,11 @@ RegisterNetEvent('qb-vehicleshop:server:financeVehicle', function(downPayment, p
             paymentAmount,
             timer
         })
-        TriggerClientEvent('QBCore:Notify', src, 'Congratulations on your purchase!', 'success')
+        TriggerClientEvent('QBCore:Notify', src, 'Tillykke med dit køb!', 'success')
         TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
         pData.Functions.RemoveMoney('bank', downPayment, 'vehicle-bought-in-showroom')
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Not enough money', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Ikke nok penge!', 'error')
     end
 end)
 
@@ -312,9 +312,9 @@ RegisterNetEvent('qb-vehicleshop:server:sellShowroomVehicle', function(data, pla
             TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', target.PlayerData.source, vehicle, plate)
             target.Functions.RemoveMoney('cash', vehiclePrice, 'vehicle-bought-in-showroom')
             player.Functions.AddMoney('bank', commission)
-            TriggerClientEvent('QBCore:Notify', src, 'You earned $'..comma_value(commission)..' in commission', 'success')
+            TriggerClientEvent('QBCore:Notify', src, 'Du tjente dkk'..comma_value(commission)..' i kommission', 'success')
             TriggerEvent('qb-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
-            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Congratulations on your purchase!', 'success')
+            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Tillykke med dit køb!', 'success')
         elseif bank >= vehiclePrice then
             MySQL.Async.insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, state) VALUES (?, ?, ?, ?, ?, ?, ?)', {
                 target.PlayerData.license,
@@ -329,13 +329,13 @@ RegisterNetEvent('qb-vehicleshop:server:sellShowroomVehicle', function(data, pla
             target.Functions.RemoveMoney('bank', vehiclePrice, 'vehicle-bought-in-showroom')
             player.Functions.AddMoney('bank', commission)
             TriggerEvent('qb-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
-            TriggerClientEvent('QBCore:Notify', src, 'You earned $'..comma_value(commission)..' in commission', 'success')
-            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Congratulations on your purchase!', 'success')
+            TriggerClientEvent('QBCore:Notify', src, 'Du tejente DKK'..comma_value(commission)..' i kommission', 'success')
+            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Tillykke med dit køb!', 'success')
         else
-            TriggerClientEvent('QBCore:Notify', src, 'Not enough money', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Ikke nok penge!', 'error')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'This player is not close enough', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Denne spiller er ikke tæt nok på', 'error')
     end
 end)
 
@@ -359,9 +359,9 @@ RegisterNetEvent('qb-vehicleshop:server:sellfinanceVehicle', function(downPaymen
         local vehiclePrice = QBCore.Shared.Vehicles[vehicle]['price']
         local timer = (Config.PaymentInterval * 60)
         local minDown = tonumber(round((Config.MinimumDown/100) * vehiclePrice))
-        if downPayment > vehiclePrice then return TriggerClientEvent('QBCore:Notify', src, 'Vehicle is not worth that much', 'error') end
-        if downPayment < minDown then return TriggerClientEvent('QBCore:Notify', src, 'Down payment too small', 'error') end
-        if paymentAmount > Config.MaximumPayments then return TriggerClientEvent('QBCore:Notify', src, 'Exceeded maximum payment amount', 'error') end
+        if downPayment > vehiclePrice then return TriggerClientEvent('QBCore:Notify', src, 'Køretøjet er ikke så meget værd', 'error') end
+        if downPayment < minDown then return TriggerClientEvent('QBCore:Notify', src, 'For lille udbetaling', 'error') end
+        if paymentAmount > Config.MaximumPayments then return TriggerClientEvent('QBCore:Notify', src, 'Det maksimale betalingsbeløb er overskredet', 'error') end
         local commission = round(vehiclePrice * Config.Commission)
         local plate = GeneratePlate()
         local balance, vehPaymentAmount = calculateFinance(vehiclePrice, downPayment, paymentAmount)
@@ -382,9 +382,9 @@ RegisterNetEvent('qb-vehicleshop:server:sellfinanceVehicle', function(downPaymen
             TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', target.PlayerData.source, vehicle, plate)
             target.Functions.RemoveMoney('cash', downPayment, 'vehicle-bought-in-showroom')
             player.Functions.AddMoney('bank', commission)
-            TriggerClientEvent('QBCore:Notify', src, 'You earned $'..comma_value(commission)..' in commission', 'success')
+            TriggerClientEvent('QBCore:Notify', src, 'Du tejente DKK'..comma_value(commission)..' i kommission', 'success')
             TriggerEvent('qb-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
-            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Congratulations on your purchase!', 'success')
+            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Tillykke med dit køb!', 'success')
         elseif bank >= downPayment then
             MySQL.Async.insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, state, balance, paymentamount, paymentsleft, financetime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', {
                 target.PlayerData.license,
@@ -402,14 +402,14 @@ RegisterNetEvent('qb-vehicleshop:server:sellfinanceVehicle', function(downPaymen
             TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', target.PlayerData.source, vehicle, plate)
             target.Functions.RemoveMoney('bank', downPayment, 'vehicle-bought-in-showroom')
             player.Functions.AddMoney('bank', commission)
-            TriggerClientEvent('QBCore:Notify', src, 'You earned $'..comma_value(commission)..' in commission', 'success')
+            TriggerClientEvent('QBCore:Notify', src, 'Du tejente DKK'..comma_value(commission)..' i kommission', 'success')
             TriggerEvent('qb-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
-            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Congratulations on your purchase!', 'success')
+            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Tillykke med dit køb!', 'success')
         else
-            TriggerClientEvent('QBCore:Notify', src, 'Not enough money', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Ikke nok penge!', 'error')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'This player is not close enough', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Denne spiller er ikke tæt nok på', 'error')
     end
 end)
 
@@ -424,14 +424,14 @@ RegisterNetEvent('qb-vehicleshop:server:checkFinance', function()
         end
     end
     if paymentDue then
-        TriggerClientEvent('QBCore:Notify', src, 'Your vehicle payment is due within '..Config.PaymentWarning..' minutes')
+        TriggerClientEvent('QBCore:Notify', src, 'Din bilbetaling forfalder inden for '..Config.PaymentWarning..' minutes')
         Wait(Config.PaymentWarning * 60000)
         MySQL.Sync.fetchAll('SELECT * FROM player_vehicles WHERE citizenid = ?', {player.PlayerData.citizenid}, function(vehicles)
             for k,v in pairs(vehicles) do
                 if v.balance >= 1 and v.financetime < 1 then
                     local plate = v.plate
                     MySQL.Async.execute('DELETE FROM player_vehicles WHERE plate = @plate', {['@plate'] = plate})
-                    TriggerClientEvent('QBCore:Notify', src, 'Your vehicle with plate '..plate..' has been repossessed', 'error')
+                    TriggerClientEvent('QBCore:Notify', src, 'Dit køretøj med plade '..plate..' er blevet overtaget af banken', 'error')
                 end
             end
         end)
@@ -454,27 +454,27 @@ RegisterNetEvent('qb-vehicleshop:server:transferVehicle', function(plate, buyerI
                 local targetcid = target.PlayerData.citizenid
                 MySQL.Async.execute('UPDATE player_vehicles SET citizenid = ? WHERE plate = ?', {targetcid, plate})
                 player.Functions.AddMoney('cash', sellAmount)
-                TriggerClientEvent('QBCore:Notify', src, 'You sold your vehicle for $'..comma_value(sellAmount), 'success')
+                TriggerClientEvent('QBCore:Notify', src, 'Dusolgte din bil for DKK'..comma_value(sellAmount), 'success')
                 target.Functions.RemoveMoney('cash', sellAmount)
                 TriggerClientEvent('vehiclekeys:client:SetOwner', target.PlayerData.source, plate)
-                TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'You bought a vehicle for $'..comma_value(sellAmount), 'success')
+                TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Du købte en bil for DKK'..comma_value(sellAmount), 'success')
             elseif target.Functions.GetMoney('bank') > sellAmount then
                 local targetcid = target.PlayerData.citizenid
                 MySQL.Async.execute('UPDATE player_vehicles SET citizenid = ? WHERE plate = ?', {targetcid, plate})
                 player.Functions.AddMoney('bank', sellAmount)
-                TriggerClientEvent('QBCore:Notify', src, 'You sold your vehicle for $'..comma_value(sellAmount), 'success')
+                TriggerClientEvent('QBCore:Notify', src, 'Dusolgte din bil for DKK'..comma_value(sellAmount), 'success')
                 target.Functions.RemoveMoney('bank', sellAmount)
                 TriggerClientEvent('vehiclekeys:client:SetOwner', target.PlayerData.source, plate)
-                TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'You bought a vehicle for $'..comma_value(sellAmount), 'success')
+                TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Du købte en bil for DKK'..comma_value(sellAmount), 'success')
             else
-                TriggerClientEvent('QBCore:Notify', src, 'Not enough money', 'error')
+                TriggerClientEvent('QBCore:Notify', src, 'Ikke nok penge!', 'error')
             end
         else
             local targetcid = target.PlayerData.citizenid
             MySQL.Async.execute('UPDATE player_vehicles SET citizenid = ? WHERE plate = ?', {targetcid, plate})
-            TriggerClientEvent('QBCore:Notify', src, 'You gifted your vehicle', 'success')
+            TriggerClientEvent('QBCore:Notify', src, 'You gifted your vehicle', 'success')Kunde ikke hente køberoplysninger.
             TriggerClientEvent('vehiclekeys:client:SetOwner', target.PlayerData.source, plate)
-            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'You were gifted a vehicle', 'success')
+            TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Du fik et køretøj i gave', 'success')
         end
     else
         TriggerClientEvent('QBCore:Notify', src, 'Couldn\'t get purchaser info.', 'error')
@@ -486,6 +486,6 @@ QBCore.Commands.Add('transferVehicle', 'Gift or sell your vehicle', {{name = 'ID
     if args[1] ~= nil and args[2] ~= nil then
         TriggerClientEvent('qb-vehicleshop:client:transferVehicle', source, args[1], args[2])
     else
-        TriggerClientEvent('QBCore:Notify', source, 'Check who you\'re selling to or the amount to sell for.', 'error')
+        TriggerClientEvent('QBCore:Notify', source, 'Tjek, hvem du sælger til, eller det beløb, du skal sælge for.', 'error')
     end
 end)

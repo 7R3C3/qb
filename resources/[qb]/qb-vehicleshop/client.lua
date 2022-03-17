@@ -44,8 +44,8 @@ end)
 
 local vehHeaderMenu = {
     {
-        header = 'Vehicle Options',
-        txt = 'Interact with the current vehicle',
+        header = 'Køretøjsmuligheder',
+        txt = 'Interager med det aktuelle køretøj',
         params = {
             event = 'qb-vehicleshop:client:showVehOptions'
         }
@@ -54,8 +54,8 @@ local vehHeaderMenu = {
 
 local financeMenu = {
     {
-        header = 'Financed Vehicles',
-        txt = 'Browse your owned vehicles',
+        header = 'Finansierede køretøjer',
+        txt = 'Gennemse dine egne køretøjer',
         params = {
             event = 'qb-vehicleshop:client:getVehicles'
         }
@@ -64,7 +64,7 @@ local financeMenu = {
 
 local returnTestDrive = {
     {
-        header = 'Finish Test Drive',
+        header = 'Afslut prøvekørslen',
         params = {
             event = 'qb-vehicleshop:client:TestDriveReturn'
         }
@@ -154,7 +154,7 @@ local function startTestDriveTimer(testDriveTime)
             Wait(1)
             if GetGameTimer() < gameTimer+tonumber(1000*testDriveTime) then
                 local secondsLeft = GetGameTimer() - gameTimer
-                drawTxt('Test Drive Time Remaining: '..math.ceil(testDriveTime - secondsLeft/1000),4,0.5,0.93,0.50,255,255,255,180)
+                drawTxt('Test tid tilbage: '..math.ceil(testDriveTime - secondsLeft/1000),4,0.5,0.93,0.50,255,255,255,180)
             end
         end
     end)
@@ -201,7 +201,7 @@ local function createVehZones(shopName) -- This will create an entity zone if co
                     type = "client",
                     event = "qb-vehicleshop:client:showVehOptions",
                     icon = "fas fa-car",
-                    label = "Vehicle Interaction",
+                    label = "Interaktion med køretøjer",
                     canInteract = function(entity)
                         local closestShop = getShopInsideOf()
                         if (closestShop ~= nil) and (Config.Shops[closestShop]['Job'] == 'none' or PlayerData.job.name == Config.Shops[closestShop]['Job']) then
@@ -237,15 +237,15 @@ function createFreeUseShop(shopShape, name)
                             header = getVehBrand():upper().. ' '..getVehName():upper().. ' - $' ..getVehPrice(),
                         },
                         {
-                            header = 'Test Drive',
-                            txt = 'Test drive currently selected vehicle',
+                            header = 'Test kør',
+                            txt = 'Prøvekør det aktuelt valgte køretøj',
                             params = {
                                 event = 'qb-vehicleshop:client:TestDrive',
                             }
                         },
                         {
-                            header = "Buy Vehicle",
-                            txt = 'Purchase currently selected vehicle',
+                            header = "Køb bil",
+                            txt = 'Køb det aktuelt valgte køretøj',
                             params = {
                                 isServer = true,
                                 event = 'qb-vehicleshop:server:buyShowroomVehicle',
@@ -255,8 +255,8 @@ function createFreeUseShop(shopShape, name)
                             }
                         },
                         {
-                            header = 'Finance Vehicle',
-                            txt = 'Finance currently selected vehicle',
+                            header = 'Finansiere køretøjet',
+                            txt = 'Finansiere valgte køretøj',
                             params = {
                                 event = 'qb-vehicleshop:client:openFinance',
                                 args = {
@@ -266,8 +266,8 @@ function createFreeUseShop(shopShape, name)
                             }
                         },
                         {
-                            header = 'Swap Vehicle',
-                            txt = 'Change currently selected vehicle',
+                            header = 'Byt køretøj',
+                            txt = 'Skift det aktuelt valgte køretøj',
                             params = {
                                 event = 'qb-vehicleshop:client:vehCategories',
                             }
@@ -303,8 +303,8 @@ function createManagedShop(shopShape, name, jobName)
                             header = getVehBrand():upper().. ' '..getVehName():upper().. ' - $' ..getVehPrice(),
                         },
                         {
-                            header = 'Test Drive',
-                            txt = 'Allow player for test drive',
+                            header = 'Test kør',
+                            txt = 'Tillad spilleren at prøvekøre',
                             params = {
                                 event = 'qb-vehicleshop:client:openIdMenu',
                                 args = {
@@ -314,8 +314,8 @@ function createManagedShop(shopShape, name, jobName)
                             }
                         },
                         {
-                            header = "Sell Vehicle",
-                            txt = 'Sell vehicle to Player',
+                            header = "Sælg bil",
+                            txt = 'Sælg bilen til en spiller',
                             params = {
                                 event = 'qb-vehicleshop:client:openIdMenu',
                                 args = {
@@ -325,8 +325,8 @@ function createManagedShop(shopShape, name, jobName)
                             }
                         },
                         {
-                            header = 'Finance Vehicle',
-                            txt = 'Finance vehicle to Player',
+                            header = 'Finansiere køretøjet',
+                            txt = 'Finansiere bilen til spilleren',
                             params = {
                                 event = 'qb-vehicleshop:client:openCustomFinance',
                                 args = {
@@ -336,8 +336,8 @@ function createManagedShop(shopShape, name, jobName)
                             }
                         },
                         {
-                            header = 'Swap Vehicle',
-                            txt = 'Change currently selected vehicle',
+                            header = 'Byt køretøj',
+                            txt = 'Skift det aktuelt valgte køretøj',
                             params = {
                                 event = 'qb-vehicleshop:client:vehCategories',
                             }
@@ -371,7 +371,7 @@ RegisterNetEvent('qb-vehicleshop:client:transferVehicle', function(buyerId, amou
     if #(GetEntityCoords(ped)-tcoords) < 5.0 then
         TriggerServerEvent('qb-vehicleshop:server:transferVehicle', plate, buyerId, amount)
     else
-        QBCore.Functions.Notify('The person you are selling to is too far away.')
+        QBCore.Functions.Notify('Den person, du sælger til, er for langt væk')
     end
 end)
 
@@ -397,21 +397,21 @@ RegisterNetEvent('qb-vehicleshop:client:TestDrive', function()
             TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(veh))
             TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
             testDriveVeh = veh
-            QBCore.Functions.Notify('You have '..Config.Shops[closestShop]["TestDriveTimeLimit"]..' minutes remaining')
+            QBCore.Functions.Notify('Du har '..Config.Shops[closestShop]["TestDriveTimeLimit"]..' minutter tilbage')
             SetTimeout(Config.Shops[closestShop]["TestDriveTimeLimit"] * 60000, function()
                 if testDriveVeh ~= 0 then
                     testDriveVeh = 0
                     inTestDrive = false
                     QBCore.Functions.DeleteVehicle(veh)
                     SetEntityCoords(PlayerPedId(), prevCoords)
-                    QBCore.Functions.Notify('Vehicle test drive complete')
+                    QBCore.Functions.Notify('Køretøjets prøvetur afsluttet')
                 end
             end)
         end, Config.Shops[getShopInsideOf()]["VehicleSpawn"], false)
         createTestDriveReturn()
         startTestDriveTimer(Config.Shops[getShopInsideOf()]["TestDriveTimeLimit"] * 60)
     else
-        QBCore.Functions.Notify('Already in test drive', 'error')
+        QBCore.Functions.Notify('Allerede i prøvekørsel', 'error')
     end
 end)
 
@@ -430,7 +430,7 @@ RegisterNetEvent('qb-vehicleshop:client:customTestDrive', function(data)
             TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(veh))
             TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
             testDriveVeh = veh
-            QBCore.Functions.Notify('You have '..Config.Shops[shopInsideOf]["TestDriveTimeLimit"]..' minutes remaining')
+            QBCore.Functions.Notify('Du har '..Config.Shops[shopInsideOf]["TestDriveTimeLimit"]..'minutter tilbage')
             SetTimeout(Config.Shops[shopInsideOf]["TestDriveTimeLimit"] * 60000, function()
                 if testDriveVeh ~= 0 then
                     testDriveVeh = 0
@@ -444,7 +444,7 @@ RegisterNetEvent('qb-vehicleshop:client:customTestDrive', function(data)
         createTestDriveReturn()
         startTestDriveTimer(Config.Shops[shopInsideOf]["TestDriveTimeLimit"] * 60)
     else
-        QBCore.Functions.Notify('Already in test drive', 'error')
+        QBCore.Functions.Notify('Allerede i prøvekørsel', 'error')
     end
 end)
 
@@ -458,14 +458,14 @@ RegisterNetEvent('qb-vehicleshop:client:TestDriveReturn', function()
         exports['qb-menu']:closeMenu()
         testDriveZone:destroy()
     else
-        QBCore.Functions.Notify('This is not your test drive vehicle', 'error')
+        QBCore.Functions.Notify('Dette er ikke dit prøvekøretøj', 'error')
     end
 end)
 
 RegisterNetEvent('qb-vehicleshop:client:vehCategories', function()
     local categoryMenu = {
         {
-            header = '< Go Back',
+            header = '< Tilbage',
             params = {
                 event = 'qb-vehicleshop:client:homeMenu'
             }
@@ -488,7 +488,7 @@ end)
 RegisterNetEvent('qb-vehicleshop:client:openVehCats', function(data)
     local vehicleMenu = {
         {
-            header = '< Go Back',
+            header = '< Tilbage',
             params = {
                 event = 'qb-vehicleshop:client:vehCategories'
             }
@@ -498,7 +498,7 @@ RegisterNetEvent('qb-vehicleshop:client:openVehCats', function(data)
         if QBCore.Shared.Vehicles[k]["category"] == data.catName and QBCore.Shared.Vehicles[k]["shop"] == getShopInsideOf() then
             vehicleMenu[#vehicleMenu + 1] = {
                 header = v.name,
-                txt = 'Price: $'..v.price,
+                txt = 'Pris: DKK'..v.price,
                 params = {
                     isServer = true,
                     event = 'qb-vehicleshop:server:swapVehicle',
@@ -517,19 +517,19 @@ end)
 RegisterNetEvent('qb-vehicleshop:client:openFinance', function(data)
     local dialog = exports['qb-input']:ShowInput({
         header = getVehBrand():upper().. ' ' ..data.buyVehicle:upper().. ' - $' ..data.price,
-        submitText = "Submit",
+        submitText = "Indsend",
         inputs = {
             {
                 type = 'number',
                 isRequired = true,
                 name = 'downPayment',
-                text = 'Down Payment Amount - Min ' ..Config.MinimumDown..'%'
+                text = 'Udbetalingsbeløb - Min ' ..Config.MinimumDown..'%'
             },
             {
                 type = 'number',
                 isRequired = true,
                 name = 'paymentAmount',
-                text = 'Total Payments - Min '..Config.MaximumPayments
+                text = 'Samlede betalinger - Min '..Config.MaximumPayments
             }
         }
     })
@@ -549,13 +549,13 @@ RegisterNetEvent('qb-vehicleshop:client:openCustomFinance', function(data)
                 type = 'number',
                 isRequired = true,
                 name = 'downPayment',
-                text = 'Down Payment Amount - Min 10%'
+                text = 'Udbetalingsbeløb - Min 10%'
             },
             {
                 type = 'number',
                 isRequired = true,
                 name = 'paymentAmount',
-                text = 'Total Payments - Max '..Config.MaximumPayments
+                text = 'Samlede betalinger - Maks '..Config.MaximumPayments
             },
             {
                 text = "Server ID (#)",
@@ -637,28 +637,28 @@ end)
 RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
     local vehFinance = {
         {
-            header = '< Go Back',
+            header = '< Tilbage',
             params = {
                 event = 'qb-vehicleshop:client:getVehicles'
             }
         },
         {
             isMenuHeader = true,
-            header = 'Total Balance Remaining',
+            header = 'Samlet resterende saldo',
             txt = '$'..comma_value(data.balance)..''
         },
         {
             isMenuHeader = true,
-            header = 'Total Payments Remaining',
+            header = 'Samlede resterende betalinger',
             txt = ''..data.paymentsLeft..''
         },
         {
             isMenuHeader = true,
-            header = 'Recurring Payment Amount',
+            header = 'Tilbagevendende betalingsbeløb',
             txt = '$'..comma_value(data.paymentAmount)..''
         },
         {
-            header = 'Make a payment',
+            header = 'Lav en betaling',
             params = {
                 event = 'qb-vehicleshop:client:financePayment',
                 args = {
@@ -669,7 +669,7 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
             }
         },
         {
-            header = 'Payoff vehicle',
+            header = 'Betal det fulde beløb',
             params = {
                 isServer = true,
                 event = 'qb-vehicleshop:server:financePaymentFull',
@@ -685,14 +685,14 @@ end)
 
 RegisterNetEvent('qb-vehicleshop:client:financePayment', function(data)
     local dialog = exports['qb-input']:ShowInput({
-        header = 'Vehicle Payment',
-        submitText = "Make Payment",
+        header = 'Køretøjsbetaling',
+        submitText = "Foretag betaling",
         inputs = {
             {
                 type = 'number',
                 isRequired = true,
                 name = 'paymentAmount',
-                text = 'Payment Amount ($)'
+                text = 'Betalingsbeløb (DKK)'
             }
         }
     })
@@ -777,7 +777,7 @@ CreateThread(function()
             SetVehicleDoorsLocked(veh, 3)
             SetEntityHeading(veh, Config.Shops[k]["ShowroomVehicles"][i].coords.w)
             FreezeEntityPosition(veh,true)
-            SetVehicleNumberPlateText(veh, 'BUY ME')
+            SetVehicleNumberPlateText(veh, 'Køb mig')
         end
 			
         createVehZones(k)
