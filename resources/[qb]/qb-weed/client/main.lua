@@ -106,10 +106,10 @@ CreateThread(function()
                         ClosestTarget = k
                         if plantData["plantStats"]["health"] > 0 then
                             if plantData["plantStage"] ~= plantData["plantStats"]["highestStage"] then
-                                DrawText3Ds(plantData["plantCoords"]["x"], plantData["plantCoords"]["y"], plantData["plantCoords"]["z"], 'Sort: '..plantData["plantSort"]["label"]..'~w~ ['..plantData["plantStats"]["gender"]..'] | Nutrition: ~b~'..plantData["plantStats"]["food"]..'% ~w~ | Health: ~b~'..plantData["plantStats"]["health"]..'%')
+                                DrawText3Ds(plantData["plantCoords"]["x"], plantData["plantCoords"]["y"], plantData["plantCoords"]["z"], 'Sort: '..plantData["plantSort"]["label"]..'~w~ ['..plantData["plantStats"]["gender"]..'] | Næring: ~b~'..plantData["plantStats"]["food"]..'% ~w~ | Liv: ~b~'..plantData["plantStats"]["health"]..'%')
                             else
                                 DrawText3Ds(plantData["plantCoords"]["x"], plantData["plantCoords"]["y"], plantData["plantCoords"]["z"] + 0.2, "Press ~g~ E ~w~ to harvest plant.")
-                                DrawText3Ds(plantData["plantCoords"]["x"], plantData["plantCoords"]["y"], plantData["plantCoords"]["z"], 'Sort: ~g~'..plantData["plantSort"]["label"]..'~w~ ['..plantData["plantStats"]["gender"]..'] | Nutrition: ~b~'..plantData["plantStats"]["food"]..'% ~w~ | Health: ~b~'..plantData["plantStats"]["health"]..'%')
+                                DrawText3Ds(plantData["plantCoords"]["x"], plantData["plantCoords"]["y"], plantData["plantCoords"]["z"], 'Sort: ~g~'..plantData["plantSort"]["label"]..'~w~ ['..plantData["plantStats"]["gender"]..'] | Næring: ~b~'..plantData["plantStats"]["food"]..'% ~w~ | Liv: ~b~'..plantData["plantStats"]["health"]..'%')
                                 if IsControlJustPressed(0, 38) then
                                     QBCore.Functions.Progressbar("remove_weed_plant", "Harvesting Plant", 8000, false, true, {
                                         disableMovement = true,
@@ -135,7 +135,7 @@ CreateThread(function()
                                 end
                             end
                         elseif plantData["plantStats"]["health"] == 0 then
-                            DrawText3Ds(plantData["plantCoords"]["x"], plantData["plantCoords"]["y"], plantData["plantCoords"]["z"], 'The plant has died. Press ~r~ E ~w~ to remove plant.')
+                            DrawText3Ds(plantData["plantCoords"]["x"], plantData["plantCoords"]["y"], plantData["plantCoords"]["z"], 'Planten døde klik på ~r~ E ~w~ fo at grave planten op.')
                             if IsControlJustPressed(0, 38) then
                                 QBCore.Functions.Progressbar("remove_weed_plant", "Removing The Plant", 8000, false, true, {
                                     disableMovement = true,

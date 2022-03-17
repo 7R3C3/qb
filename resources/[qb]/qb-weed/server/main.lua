@@ -162,19 +162,19 @@ RegisterNetEvent('qb-weed:server:harvestPlant', function(house, amount, plantNam
                     Player.Functions.RemoveItem('empty_weed_bag', sndAmount)
                     MySQL.Async.execute('DELETE FROM house_plants WHERE plantid = ? AND building = ?',
                         {plantId, house})
-                    TriggerClientEvent('QBCore:Notify', src, 'The plant has been harvested', 'success', 3500)
+                    TriggerClientEvent('QBCore:Notify', src, 'Planten er høstet', 'success', 3500)
                     TriggerClientEvent('qb-weed:client:refreshHousePlants', -1, house)
                 else
-                    TriggerClientEvent('QBCore:Notify', src, 'This plant no longer exists?', 'error', 3500)
+                    TriggerClientEvent('QBCore:Notify', src, 'Denne plante findes ikke længere?', 'error', 3500)
                 end
             else
-                TriggerClientEvent('QBCore:Notify', src, 'House Not Found', 'error', 3500)
+                TriggerClientEvent('QBCore:Notify', src, 'Huset blev ikke fundet', 'error', 3500)
             end
         else
-            TriggerClientEvent('QBCore:Notify', src, "You Don't Have Enough Resealable Bags", 'error', 3500)
+            TriggerClientEvent('QBCore:Notify', src, "Du har ikke nok genlukkelige poser", 'error', 3500)
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, "You Don't Have Enough Resealable Bags", 'error', 3500)
+        TriggerClientEvent('QBCore:Notify', src, "Du har ikke nok genlukkelige poser", 'error', 3500)
     end
 end)
 
@@ -185,7 +185,7 @@ RegisterNetEvent('qb-weed:server:foodPlant', function(house, amount, plantName, 
         'SELECT * FROM house_plants WHERE building = ? AND sort = ? AND plantid = ?',
         {house, plantName, tostring(plantId)})
     TriggerClientEvent('QBCore:Notify', src,
-        QBWeed.Plants[plantName]["label"] .. ' | Nutrition: ' .. plantStats[1].food .. '% + ' .. amount .. '% (' ..
+        QBWeed.Plants[plantName]["label"] .. ' | Næring: ' .. plantStats[1].food .. '% + ' .. amount .. '% (' ..
             (plantStats[1].food + amount) .. '%)', 'success', 3500)
     if plantStats[1].food + amount > 100 then
         MySQL.Async.execute('UPDATE house_plants SET food = ? WHERE building = ? AND plantid = ?',
