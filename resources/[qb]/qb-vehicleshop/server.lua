@@ -454,7 +454,7 @@ RegisterNetEvent('qb-vehicleshop:server:transferVehicle', function(plate, buyerI
                 local targetcid = target.PlayerData.citizenid
                 MySQL.Async.execute('UPDATE player_vehicles SET citizenid = ? WHERE plate = ?', {targetcid, plate})
                 player.Functions.AddMoney('cash', sellAmount)
-                TriggerClientEvent('QBCore:Notify', src, 'Dusolgte din bil for DKK'..comma_value(sellAmount), 'success')
+                TriggerClientEvent('QBCore:Notify', src, 'Du solgte din bil for DKK'..comma_value(sellAmount), 'success')
                 target.Functions.RemoveMoney('cash', sellAmount)
                 TriggerClientEvent('vehiclekeys:client:SetOwner', target.PlayerData.source, plate)
                 TriggerClientEvent('QBCore:Notify', target.PlayerData.source, 'Du købte en bil for DKK'..comma_value(sellAmount), 'success')
