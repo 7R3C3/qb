@@ -9,7 +9,7 @@ Config.CallRepeats = 10
 Config.OpenPhone = 244
 Config.PhoneApplications = {
     ["phone"] = {
-        app = "Telefon",
+        app = "phone",
         color = "#04b543",
         icon = "fa fa-phone-alt",
         tooltipText = "Phone",
@@ -32,7 +32,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["settings"] = {
-        app = "Indstillinger",
+        app = "settings",
         color = "#636e72",
         icon = "fa fa-cogs",
         tooltipText = "Settings",
@@ -65,7 +65,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["mail"] = {
-        app = "E-mail",
+        app = "mail",
         color = "#ff002f",
         icon = "fas fa-envelope-open-text",
         tooltipText = "Mail",
@@ -75,7 +75,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["advert"] = {
-        app = "Reklame",
+        app = "advert",
         color = "#ff8f1a",
         icon = "fas fa-bullhorn",
         tooltipText = "Advertisements",
@@ -105,7 +105,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["racing"] = {
-        app = "Ræs",
+        app = "racing",
         color = "#353b48",
         icon = "fas fa-flag-checkered",
         tooltipText = "Racing",
@@ -115,7 +115,7 @@ Config.PhoneApplications = {
         Alerts = 0,
     },
     ["houses"] = {
-        app = "Huse",
+        app = "houses",
         color = "#27ae60",
         icon = "fas fa-home",
         tooltipText = "Houses",
@@ -124,8 +124,18 @@ Config.PhoneApplications = {
         slot = 11,
         Alerts = 0,
     },
+    ["meos"] = {
+        app = "meos",
+        color = "#004682",
+        icon = "fas fa-ad",
+        tooltipText = "MDT",
+        job = "police",
+        blockedjobs = {},
+        slot = 13,
+        Alerts = 0,
+    },
     ["lawyers"] = {
-        app = "Advokater",
+        app = "lawyers",
         color = "#26d4ce",
         icon = "fas fa-briefcase",
         tooltipText = "Services",
@@ -133,6 +143,28 @@ Config.PhoneApplications = {
         job = false,
         blockedjobs = {},
         slot = 12,
+        Alerts = 0,
+    },
+    ["gallery"] = {
+        app = "gallery",
+        color = "#AC1D2C",
+        icon = "fas fa-images",
+        tooltipText = "Gallery",
+        tooltipPos = "bottom",
+        job = false,
+        blockedjobs = {},
+        slot = 16,
+        Alerts = 0,
+    },
+    ["camera"] = {
+        app = "camera",
+        color = "#AC1D2C",
+        icon = "fas fa-camera",
+        tooltipText = "Camera",
+        tooltipPos = "bottom",
+        job = false,
+        blockedjobs = {},
+        slot = 15,
         Alerts = 0,
     },
 }

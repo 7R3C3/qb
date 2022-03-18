@@ -302,7 +302,7 @@ local function OpenPhone()
                 PhoneData.GarageVehicles = vehicles
             end)
         else
-            QBCore.Functions.Notify("Du har ikke en telefon!", "error")
+            QBCore.Functions.Notify("You don't have a phone", "error")
         end
     end)
 end
@@ -371,7 +371,7 @@ local function CancelCall()
             action = "PhoneNotification",
             PhoneNotify = {
                 title = "Phone",
-                text = "Opkaldet er afsluttet",
+                text = "The call has been ended",
                 icon = "fas fa-phone",
                 color = "#e84118",
             },
@@ -381,7 +381,7 @@ local function CancelCall()
             action = "PhoneNotification",
             PhoneNotify = {
                 title = "Phone",
-                text = "Opkaldet er afsluttet",
+                text = "The call has been ended",
                 icon = "fas fa-phone",
                 color = "#e84118",
             },
@@ -443,7 +443,7 @@ local function AnswerCall()
             action = "PhoneNotification",
             PhoneNotify = {
                 title = "Phone",
-                text = "Du har ikke et opkald...",
+                text = "You don't have a incoming call...",
                 icon = "fas fa-phone",
                 color = "#e84118",
             },
@@ -463,7 +463,7 @@ RegisterCommand('phone', function()
         if not PlayerData.metadata['ishandcuffed'] and not PlayerData.metadata['inlaststand'] and not PlayerData.metadata['isdead'] and not IsPauseMenuActive() then
             OpenPhone()
         else
-            QBCore.Functions.Notify("Dette er ikke muligt..", "error")
+            QBCore.Functions.Notify("Action not available at the moment..", "error")
         end
     end
 end)
@@ -834,9 +834,9 @@ end)
 RegisterNUICallback('track-vehicle', function(data, cb)
     local veh = data.veh
     if findVehFromPlateAndLocate(veh.plate) then
-        QBCore.Functions.Notify("Din bil er markeret", "success")
+        QBCore.Functions.Notify("Your vehicle has been marked", "success")
     else
-        QBCore.Functions.Notify("Denne bil kan ikke lokaliseres", "error")
+        QBCore.Functions.Notify("This vehicle cannot be located", "error")
     end
 end)
 
@@ -853,7 +853,7 @@ RegisterNUICallback('DeleteContact', function(data, cb)
                     action = "PhoneNotification",
                     PhoneNotify = {
                         title = "Phone",
-                        text = "Du slettede en kontakt!",
+                        text = "You deleted contact!",
                         icon = "fa fa-phone-alt",
                         color = "#04b543",
                         timeout = 1500,
@@ -921,7 +921,7 @@ end)
 
 RegisterNUICallback('SetAlertWaypoint', function(data)
     local coords = data.alert.coords
-    QBCore.Functions.Notify('GPS lokation er på dit map: '..data.alert.title)
+    QBCore.Functions.Notify('GPS Location set: '..data.alert.title)
     SetNewWaypoint(coords.x, coords.y)
 end)
 
@@ -1028,7 +1028,7 @@ RegisterNUICallback('RaceDistanceCheck', function(data, cb)
             end
             cb(true)
         else
-            QBCore.Functions.Notify('Du er for langt væk fra løbet. GPS er indstillet til løbet.', 'error', 5000)
+            QBCore.Functions.Notify('You\'re too far away from the race. GPS has been set to the race.', 'error', 5000)
             SetNewWaypoint(checkpointcoords.x, checkpointcoords.y)
             cb(false)
         end
@@ -1063,7 +1063,7 @@ end)
 
 RegisterNUICallback('SetHouseLocation', function(data, cb)
     SetNewWaypoint(data.HouseData.HouseData.coords.enter.x, data.HouseData.HouseData.coords.enter.y)
-    QBCore.Functions.Notify("GPS er indstillet til " .. data.HouseData.HouseData.adress .. "!", "success")
+    QBCore.Functions.Notify("GPS has been set to " .. data.HouseData.HouseData.adress .. "!", "success")
 end)
 
 RegisterNUICallback('RemoveKeyholder', function(data)
@@ -1092,7 +1092,7 @@ RegisterNUICallback('SetGPSLocation', function(data, cb)
     local ped = PlayerPedId()
 
     SetNewWaypoint(data.coords.x, data.coords.y)
-    QBCore.Functions.Notify('GPS er indstillet!', 'success')
+    QBCore.Functions.Notify('GPS has been set!', 'success')
 end)
 
 RegisterNUICallback('SetApartmentLocation', function(data, cb)
@@ -1100,7 +1100,7 @@ RegisterNUICallback('SetApartmentLocation', function(data, cb)
     local TypeData = Apartments.Locations[ApartmentData.type]
 
     SetNewWaypoint(TypeData.coords.enter.x, TypeData.coords.enter.y)
-    QBCore.Functions.Notify('GPS er indstillet!', 'success')
+    QBCore.Functions.Notify('GPS has been set!', 'success')
 end)
 
 RegisterNUICallback('GetCurrentLawyers', function(data, cb)
@@ -1169,7 +1169,7 @@ RegisterNUICallback('CanTransferMoney', function(data, cb)
             if Transferd then
                 cb({TransferedMoney = true, NewBalance = (PlayerData.money.bank - amount)})
             else
-		SendNUIMessage({ action = "PhoneNotification", PhoneNotify = { timeout=3000, title = "Bank", text = "Konto findes ikke!", icon = "fas fa-university", color = "#ff0000", }, })
+		SendNUIMessage({ action = "PhoneNotification", PhoneNotify = { timeout=3000, title = "Bank", text = "Account does not exist!", icon = "fas fa-university", color = "#ff0000", }, })
                 cb({TransferedMoney = false})
             end
         end, amount, iban)
@@ -1391,7 +1391,7 @@ end)
 RegisterCommand('ping', function(source, args)
     local PlayerData = QBCore.Functions.GetPlayerData()
     if not args[1] then
-        QBCore.Functions.Notify("Du skal skrive et spiller id (HOME)", "error")
+        QBCore.Functions.Notify("You need to input a Player ID", "error")
     else
         TriggerServerEvent('qb-phone:server:sendPing', args[1])
     end
@@ -1443,7 +1443,7 @@ end)
 
 RegisterNetEvent('qb-phone:client:TransferMoney', function(amount, newmoney)
     PhoneData.PlayerData.money.bank = newmoney
-    SendNUIMessage({ action = "PhoneNotification", PhoneNotify = { title = "QBank", text = "&#36;"..amount.." Er blevet tilføjet til din konto!", icon = "fas fa-university", color = "#8c7ae6", }, })
+    SendNUIMessage({ action = "PhoneNotification", PhoneNotify = { title = "QBank", text = "&#36;"..amount.." has been added to your account!", icon = "fas fa-university", color = "#8c7ae6", }, })
     SendNUIMessage({ action = "UpdateBank", NewBalance = PhoneData.PlayerData.money.bank })
 end)
 
@@ -1470,7 +1470,7 @@ RegisterNetEvent('qb-phone:client:UpdateTweets', function(src, Tweets, NewTweetD
                 action = "PhoneNotification",
                 PhoneNotify = {
                     title = "New Tweet (@"..NewTweetData.firstName.." "..NewTweetData.lastName..")",
-                    text = NewTweetData.message,
+                    text = "A new tweet as been posted.",
                     icon = "fab fa-twitter",
                     color = "#1DA1F2",
                 },
@@ -1558,7 +1558,7 @@ RegisterNetEvent('qb-phone:client:NewMailNotify', function(MailData)
         action = "PhoneNotification",
         PhoneNotify = {
             title = "Mail",
-            text = "Du har modtaget en ny mail fra "..MailData.sender,
+            text = "You received a new mail from "..MailData.sender,
             icon = "fas fa-envelope",
             color = "#ff002f",
             timeout = 1500,
@@ -1589,8 +1589,8 @@ RegisterNetEvent('qb-phone:client:UpdateAdverts', function(Adverts, LastAd)
     SendNUIMessage({
         action = "PhoneNotification",
         PhoneNotify = {
-            title = "Reklame",
-            text = "En ny annonce er blevet indsendt af "..LastAd,
+            title = "Advertisement",
+            text = "A new ad has been posted by "..LastAd,
             icon = "fas fa-ad",
             color = "#ff8f1a",
             timeout = 2500,
@@ -1647,7 +1647,7 @@ RegisterNetEvent('qb-phone:client:CancelCall', function()
             action = "PhoneNotification",
             NotifyData = {
                 title = "Phone",
-                content = "Opkaldet er afsluttet",
+                content = "The call has been ended",
                 icon = "fas fa-phone",
                 timeout = 3500,
                 color = "#e84118",
@@ -1658,7 +1658,7 @@ RegisterNetEvent('qb-phone:client:CancelCall', function()
             action = "PhoneNotification",
             PhoneNotify = {
                 title = "Phone",
-                text = "Opkaldet er afsluttet",
+                text = "The call has been ended",
                 icon = "fas fa-phone",
                 color = "#e84118",
             },
@@ -1895,7 +1895,7 @@ RegisterNetEvent('qb-phone:client:RemoveBankMoney', function(amount)
             action = "PhoneNotification",
             PhoneNotify = {
                 title = "Bank",
-                text = "DKK"..amount.." Blev hævet fra din konto!",
+                text = "$"..amount.." has been removed from your balance!",
                 icon = "fas fa-university",
                 color = "#ff002f",
                 timeout = 3500,
@@ -2038,7 +2038,7 @@ RegisterNetEvent('qb-phone:client:GiveContactDetails', function()
         local PlayerId = GetPlayerServerId(player)
         TriggerServerEvent('qb-phone:server:GiveContactDetails', PlayerId)
     else
-        QBCore.Functions.Notify("Ingern i nærheden!", "error")
+        QBCore.Functions.Notify("No one nearby!", "error")
     end
 end)
 

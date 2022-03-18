@@ -225,7 +225,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetPhoneData', function(source,
         end
 
         local Tweets = MySQL.Sync.fetchAll('SELECT * FROM phone_tweets WHERE `date` > NOW() - INTERVAL ? hour', {Config.TweetDuration})
-        
+
         if Tweets ~= nil and next(Tweets) ~= nil then
             PhoneData.Tweets = Tweets
             TWData = Tweets
@@ -493,7 +493,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:ScanPlate', function(source, cb
         end
         cb(vehicleData)
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Ingen bil i nærheden', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'No Vehicle Nearby', 'error')
         cb(nil)
     end
 end)
@@ -520,7 +520,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:CanTransferMoney', function(sou
     end
     iban = newiban
     amount = tonumber(newAmount)
-    
+
     local Player = QBCore.Functions.GetPlayer(source)
     if (Player.PlayerData.money.bank - amount) >= 0 then
         local query = '%"account":"' .. iban .. '"%'
@@ -796,7 +796,7 @@ RegisterNetEvent('qb-phone:server:DeleteTweet', function(tweetId)
         local Data2 = MySQL.Sync.fetchAll('DELETE FROM phone_tweets WHERE tweetId = ?', {TID})
         delete = true
     end
-    
+
     if delete then
         delete = not delete
         for k, v in pairs(TWData) do
@@ -811,29 +811,29 @@ end)
 RegisterNetEvent('qb-phone:server:UpdateTweets', function(NewTweets, TweetData)
     local src = source
     if Config.Linux then
-	local InsertTweet = MySQL.Async.insert('INSERT INTO phone_tweets (citizenid, firstName, lastName, message, date, url, picture, tweetid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
-	TweetData.citizenid,
-	TweetData.firstName,
-	TweetData.lastName,
-	TweetData.message,
-	TweetData.date,
-	TweetData.url:gsub("[%<>\"()\' $]",""),
-	TweetData.picture,
-	TweetData.tweetId
-	})
-	TriggerClientEvent('qb-phone:client:UpdateTweets', -1, src, NewTweets, TweetData, false)
+        local InsertTweet = MySQL.Async.insert('INSERT INTO phone_tweets (citizenid, firstName, lastName, message, date, url, picture, tweetid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
+            TweetData.citizenid,
+            TweetData.firstName,
+            TweetData.lastName,
+            TweetData.message,
+            TweetData.date,
+            TweetData.url:gsub("[%<>\"()\' $]",""),
+            TweetData.picture,
+            TweetData.tweetId
+        })
+        TriggerClientEvent('qb-phone:client:UpdateTweets', -1, src, NewTweets, TweetData, false)
     else
-	local InsertTweet = MySQL.Async.insert('INSERT INTO phone_tweets (citizenid, firstName, lastName, message, date, url, picture, tweetid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
-	TweetData.citizenid,
-	TweetData.firstName,
-	TweetData.lastName,
-	TweetData.message,
-	TweetData.time,
-	TweetData.url,
-	TweetData.picture,
-	TweetData.tweetId
-	})
-	TriggerClientEvent('qb-phone:client:UpdateTweets', -1, src, NewTweets, TweetData, false)		
+        local InsertTweet = MySQL.Async.insert('INSERT INTO phone_tweets (citizenid, firstName, lastName, message, date, url, picture, tweetid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
+            TweetData.citizenid,
+            TweetData.firstName,
+            TweetData.lastName,
+            TweetData.message,
+            TweetData.time,
+            TweetData.url:gsub("[%<>\"()\' $]",""),
+            TweetData.picture,
+            TweetData.tweetId
+        })
+        TriggerClientEvent('qb-phone:client:UpdateTweets', -1, src, NewTweets, TweetData, false)
     end
 end)
 
@@ -863,7 +863,7 @@ RegisterNetEvent('qb-phone:server:TransferMoney', function(iban, amount)
             sender.Functions.RemoveMoney('bank', amount, "phone-transfered")
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, "Dette konto nummer findes ikk!", "error")
+        TriggerClientEvent('QBCore:Notify', src, "This account number doesn't exist!", "error")
     end
 end)
 
@@ -1043,7 +1043,7 @@ RegisterNetEvent('qb-phone:server:sendPing', function(data)
     if src ~= data then
 
     else
-        TriggerClientEvent("QBCore:Notify", src, "Du kan ikke pinge dig selv", "error")
+        TriggerClientEvent("QBCore:Notify", src, "You cannot ping yourself", "error")
     end
 end)
 
@@ -1075,18 +1075,18 @@ QBCore.Commands.Add('bill', 'Bill A Player', {{name = 'id', help = 'Player ID'},
                         {billed.PlayerData.citizenid, amount, biller.PlayerData.job.name,
                          biller.PlayerData.charinfo.firstname, biller.PlayerData.citizenid})
                     TriggerClientEvent('qb-phone:RefreshPhone', billed.PlayerData.source)
-                    TriggerClientEvent('QBCore:Notify', source, 'Regning er sendt', 'success')
-                    TriggerClientEvent('QBCore:Notify', billed.PlayerData.source, 'Ny regning modtaget')
+                    TriggerClientEvent('QBCore:Notify', source, 'Invoice Successfully Sent', 'success')
+                    TriggerClientEvent('QBCore:Notify', billed.PlayerData.source, 'New Invoice Received')
                 else
-                    TriggerClientEvent('QBCore:Notify', source, 'Skal være et over 0', 'error')
+                    TriggerClientEvent('QBCore:Notify', source, 'Must Be A Valid Amount Above 0', 'error')
                 end
             else
-                TriggerClientEvent('QBCore:Notify', source, 'Du kan ikke snde en regning til dig selv?', 'error')
+                TriggerClientEvent('QBCore:Notify', source, 'You Cannot Bill Yourself', 'error')
             end
         else
-            TriggerClientEvent('QBCore:Notify', source, 'Spiller er ikke i byen', 'error')
+            TriggerClientEvent('QBCore:Notify', source, 'Player Not Online', 'error')
         end
     else
-        TriggerClientEvent('QBCore:Notify', source, 'Ingen adgang!', 'error')
+        TriggerClientEvent('QBCore:Notify', source, 'No Access', 'error')
     end
 end)
