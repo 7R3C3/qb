@@ -61,21 +61,21 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
     -- mandatory wait!
     Wait(2500)
 
-    deferrals.update(string.format('Hello %s. We are checking if you are banned.', name))
+    deferrals.update(string.format('Hej %s. vi checker om du er banned.', name))
 
     local isBanned, Reason = QBCore.Functions.IsPlayerBanned(player)
     local isLicenseAlreadyInUse = QBCore.Functions.IsLicenseInUse(license)
 
     Wait(2500)
 
-    deferrals.update(string.format('Welcome %s to {Server Name}.', name))
+    deferrals.update(string.format('Velkommen %s til {Server Name}.', name))
 
     if not license then
-        deferrals.done('No Valid Rockstar License Found')
+        deferrals.done('Ingen gyldig Rockstar-licens fundet')
     elseif isBanned then
         deferrals.done(Reason)
     elseif isLicenseAlreadyInUse and QBCore.Config.Server.checkDuplicateLicense then
-        deferrals.done('Duplicate Rockstar License Found')
+        deferrals.done('Dublet Rockstar-licens fundet')
     else
         deferrals.done()
         Wait(1000)
@@ -95,7 +95,7 @@ RegisterNetEvent('QBCore:server:CloseServer', function(reason)
         QBCore.Config.Server.closed = true
         QBCore.Config.Server.closedReason = reason
     else
-        QBCore.Functions.Kick(src, 'You don\'t have permissions for this..', nil, nil)
+        QBCore.Functions.Kick(src, 'Du har ikke tilladelser til dette..', nil, nil)
     end
 end)
 
@@ -104,7 +104,7 @@ RegisterNetEvent('QBCore:server:OpenServer', function()
     if QBCore.Functions.HasPermission(src, 'admin') or QBCore.Functions.HasPermission(src, 'god') then
         QBCore.Config.Server.closed = false
     else
-        QBCore.Functions.Kick(src, 'You don\'t have permissions for this..', nil, nil)
+        QBCore.Functions.Kick(src, 'Du har ikke tilladelser til dette..', nil, nil)
     end
 end)
 
