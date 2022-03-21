@@ -102,7 +102,6 @@ Config.SecurityCameras = {
 Config.AuthorizedVehicles = {
 	-- Grade 0
 	[0] = {
-		["policeb"] = "Politi motorcykel",
 		["politi1"] = "politi1",
 		["politi2"] = "politi2",
 		["politi3"] = "politi3",
@@ -118,7 +117,6 @@ Config.AuthorizedVehicles = {
 	},
 	-- Grade 1
 	[1] = {
-		["policeb"] = "Politi motorcykel",
 		["politi1"] = "politi1",
 		["politi2"] = "politi2",
 		["politi3"] = "politi3",
@@ -135,7 +133,6 @@ Config.AuthorizedVehicles = {
 	},
 	-- Grade 2
 	[2] = {
-		["policeb"] = "Politi motorcykel",
 		["politi1"] = "politi1",
 		["politi2"] = "politi2",
 		["politi3"] = "politi3",
@@ -151,7 +148,6 @@ Config.AuthorizedVehicles = {
 	},
 	-- Grade 3
 	[3] = {
-		["policeb"] = "Politi motorcykel",
 		["politi1"] = "politi1",
 		["politi2"] = "politi2",
 		["politi3"] = "politi3",
@@ -167,7 +163,6 @@ Config.AuthorizedVehicles = {
 	},
 	-- Grade 4
 	[4] = {
-		["policeb"] = "Politi motorcykel",
 		["politi1"] = "politi1",
 		["politi2"] = "politi2",
 		["politi3"] = "politi3",
