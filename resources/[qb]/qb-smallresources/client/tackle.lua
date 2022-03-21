@@ -3,7 +3,7 @@ CreateThread(function()
         if QBCore ~= nil then
             local ped = PlayerPedId()
             if not IsPedInAnyVehicle(ped, false) and GetEntitySpeed(ped) > 2.5 then
-                if IsControlJustPressed(1, 19) then
+                if IsControlJustPressed(21, 74) then
                     Tackle()
                 end
             else
